@@ -26,18 +26,14 @@ public class GameMenuScreenMixin extends Screen {
         if (button.id == 1507) {
             Anchiale.fastReset = true;
             boolean bl = this.client.isIntegratedServerRunning();
-            boolean bl2 = this.client.isConnectedToRealms();
             button.active = false;
             this.client.world.disconnect();
             this.client.connect((ClientWorld)null);
             Anchiale.fastReset = false;
             if (bl) {
-                this.client.openScreen(new TitleScreen());
-            } else if (bl2) {
-                RealmsBridge realmsBridge = new RealmsBridge();
-                realmsBridge.switchToRealms(new TitleScreen());
+                this.client.setScreen(new TitleScreen());
             } else {
-                this.client.openScreen(new MultiplayerScreen(new TitleScreen()));
+                this.client.setScreen(new MultiplayerScreen(new TitleScreen()));
             }
             ci.cancel();
         }
